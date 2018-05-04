@@ -14,7 +14,23 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    leftTime:60,
+    gameState: "游戏进行中",
+    myTurn: true,
+    colors: [
+      {colorName: "Black", value: "#000000"},
+      {colorName: "Lime", value: "#00FF00"},
+      {colorName: "OrangeRed", value: "#FF4500"},
+      { colorName: "Yellow", value: "#FFFF00"},
+      {colorName: "Orange", value: "#FFA500"},
+      {colorName: "DeepSkyBlue", value: "#00BFFF"}
+    ],
+    isPenSelecting: false,
+    hint: 3,
+    hint_category: "花朵",
+    placeholder: "输入您的答案",
+    chatContent: ""
   },
 
   /**
@@ -252,12 +268,18 @@ Page({
   },
   
   /**
-   * 选择画笔
+   * 显示滑动条
    */
   penSelect: function (e) {
-    console.log(e.currentTarget);
-    this.setData({ pen: parseInt(e.currentTarget.dataset.param) });
+    var now = this.data.isPenSelecting;
+    this.setData({isPenSelecting: !now})
+    //this.setData({ pen: parseInt(e.currentTarget.dataset.param) });
     this.isClear = false;
+  },
+
+  penSizeChanged: function (e) {
+    console.log(e)
+    this.setData({ pen: parseInt(e.detail.value) });
   },
 
   /**
@@ -267,6 +289,14 @@ Page({
     console.log(e.currentTarget);
     this.setData({ color: e.currentTarget.dataset.param });
     this.isClear = false;
+  },
+
+  onFocus: function (e){
+    this.setData({ placeholder: ''});
+  },
+
+  onblur: function (e){
+    this.setData({ placeholder: '输入您的答案' });
   },
 
   /**

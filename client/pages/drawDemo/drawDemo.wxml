@@ -1,20 +1,104 @@
 <view class="container" >
-    <!--画布区域-->
-    <view class="canvas_area">
-        <!--注意：同一页面中的 canvas-id 不可重复，如果使用一个已经出现过的 canvas-id，该 canvas 标签对应的画布将被隐藏并不再正常工作-->
-        <canvas canvas-id="myCanvas" class="myCanvas"
-            disable-scroll="false"
-            bindtouchstart="touchStart"
-            bindtouchmove="touchMove"
-            bindtouchend="touchEnd">
-        </canvas>
+  <!-- bar -->
+  <view class="bar">
+    <view class="time vertical-center">
+      <view class="time-text">时间</view>
+      <view class="left-time">{{leftTime}}</view>
     </view>
-    <!--画布工具区域-->
-    <view class="canvas_tools">
-        <view class="box box1" bindtap="penSelect" data-param="5"></view>
-        <view class="box box2" bindtap="penSelect" data-param="15"></view>
-        <view class="box box3" bindtap="colorSelect" data-param="#cc0033"></view>
-        <view class="box box4" bindtap="colorSelect" data-param="#ff9900"></view>
-        <view class="box box5" bindtap="clearCanvas"></view>
+    <view class="game-state vertical-center">{{gameState}}</view>
+    <view class="quit-game vertical-center" bindtap='quitGame'>退出游戏</view>
+  </view>
+
+  <!-- 画布 -->
+  <view class="canvas-area">
+    <!-- 同一页面中的 canvas-id 不可重复 -->
+    <!-- 如果使用一个已经出现过的 canvas-id -->
+    <!-- 该 canvas 标签对应的画布将被隐藏并不再正常工作 -->
+    <canvas
+        class="canvas"
+        canvas-id="myCanvas" 
+        disable-scroll="false"
+        bindtouchstart="touchStart"
+        bindtouchmove="touchMove"
+        bindtouchend="touchEnd">
+    </canvas>
+
+    <!-- 画布工具 -->
+    <view class="tools draw-tools" wx:if="{{myTurn}}" >
+      <slider 
+        class="slider"
+        wx:if="{{isPenSelecting}}" 
+        bindchange="penSizeChanged"
+        backgroundColor='wheat'
+        selected-color='#FFD700'
+        block-size='14'
+        min="1"
+        max="10"
+        step="1"
+        value='3'
+        show-value>
+      </slider>
+      <view class="box penSelector" bindtap="penSelect"></view>
+      <view class="box eraser" bindtap="clearCanvas"></view>
+      <view wx:for="{{colors}}" wx:key="colorName" 
+            class="box" style='background-color:{{item.value}}' 
+            bindtap="colorSelect" data-param="{{item.value}}"></view>
     </view>
+
+    <!-- 评论工具 -->
+    <view class="tools comment-tools" wx:if="{{!myTurn}}">
+        <view>提示：{{hint}}个字，{{hint_category}}</view>
+    </view>
+  </view>
+  <!-- 讨论 -->
+  <view class='chat'>
+    <view class='head-portrait'>
+      <image 
+        class='head' 
+        src='./user-unlogin.png'
+        mode='aspectFit'></image>
+      <image 
+        class='head' 
+        src='./user-unlogin.png'
+        mode='aspectFit'></image>
+      <image 
+      class='head' 
+      src='./user-unlogin.png'
+      mode='aspectFit'></image>
+    </view>
+    <view class='chat-content'>{{chatContent}}</view>
+    <view class='head-portrait'>
+      <image 
+        class='head' 
+        src='./user-unlogin.png'
+        mode='aspectFit'></image>
+      <image 
+        class='head' 
+        src='./user-unlogin.png'
+        mode='aspectFit'></image>
+      <image 
+      class='head' 
+      src='./user-unlogin.png'
+      mode='aspectFit'></image>
+    </view>
+  </view>
+
+  <!-- 输入答案 -->
+   <view class='input'>
+    <input class='input-text'
+      placeholder='{{placeholder}}'
+      maxlength='140'
+      bindfocus='onFocus'
+      bindblur='onblur'
+    >
+    </input>
+    <view class='submit'>
+      <button
+        size='mini'
+        class='submit-button'
+      >
+        提交
+      </button>
+    </view>
+  </view> 
 </view>
