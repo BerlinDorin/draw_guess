@@ -70,30 +70,8 @@
       <text wx:if='{{showNickName}}' class='nickName'>{{gamers[2].nickName}}</text>
     </view>
     <!-- 聊天内容 -->
-    <view wx:if='{{showChatContent}}' class='chat-content'>
+    <view class='chat-content'>
       <text >{{chatContent}}</text>
-    </view>
-    <!-- 匹配工具 -->
-    <view wx:if='{{!showChatContent}}'>
-      <button>邀请好友</button>
-      <button>开始游戏</button>
-    </view>
-    <view class='head-portrait'>
-      <image 
-        class='head' 
-        src='{{gamers[3].img}}'
-        mode='aspectFit'></image>
-        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[3].nickName}}</text>
-      <image 
-        class='head' 
-        src='{{gamers[4].img}}'
-        mode='aspectFit'></image>
-        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[4].nickName}}</text>
-      <image 
-      class='head' 
-      src='{{gamers[5].img}}'
-      mode='aspectFit'></image>
-      <text wx:if='{{showNickName}}' class='nickName'>{{gamers[5].nickName}}</text>
     </view>
   </view>
 

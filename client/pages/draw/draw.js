@@ -3,7 +3,6 @@ var config = require('../../config')
 var util = require('../../utils/util.js')
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -42,7 +41,6 @@ Page({
     ],
     showNickName: false,
     gamerCount: 0,
-    showChatContent: true
   },
 
   openTunnel: function () {
