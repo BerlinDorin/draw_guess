@@ -50,6 +50,7 @@
         <view>提示：{{hint}}个字，{{hint_category}}</view>
     </view>
   </view>
+
   <!-- 讨论 -->
   <view class='chat'>
     <view class='head-portrait'>
@@ -72,6 +73,23 @@
     <!-- 聊天内容 -->
     <view class='chat-content'>
       <text >{{chatContent}}</text>
+    </view>
+    <view class='head-portrait'>
+      <image 
+        class='head'
+        src='{{gamers[0].img}}'
+        mode='aspectFit'></image>
+        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[0].nickName}}</text>
+      <image 
+        class='head' 
+        src='{{gamers[1].img}}'
+        mode='aspectFit'></image>
+        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[1].nickName}}</text>
+      <image 
+      class='head' 
+      src='{{gamers[2].img}}'
+      mode='aspectFit'></image>
+      <text wx:if='{{showNickName}}' class='nickName'>{{gamers[2].nickName}}</text>
     </view>
   </view>
 
