@@ -30,67 +30,29 @@ Page({
     hint: 3,
     hint_category: "花朵",
     placeholder: "输入您的答案",
-    chatContent: ""
-  },
-
-  /**
-   * 用户登录
-   */
-  login: function () {
-    // 在app.js中已经执行了setLoginUrl
-    // 如果已经登录，直接返回
-    if (this.data.logged) 
-      return
-
-    util.showBusy('正在登录')
-    var that = this
-
-    // 调用登录接口
-    qcloud.login({
-      success(result) {
-        if (result) {
-          util.showSuccess('登录成功')
-          that.setData({
-            userInfo: result,
-            logged: true
-          })
-          console.log('登录成功', that.data.userInfo)
-        } else {
-
-          // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
-          qcloud.request({
-            // 这个url：`${host}/weapp/user`
-            url: config.service.requestUrl,
-            login: true,
-            success(result) {
-              util.showSuccess('登录成功')
-              that.setData({
-                userInfo: result.data.data,
-                logged: true
-              })
-              console.log('登录成功', that.data.userInfo)
-            },
-
-            fail(error) {
-              util.showModel('请求失败', error)
-              console.log('请求失败', error)
-            }
-          })
-        }
-      },
-
-      fail(error) {
-        util.showModel('登录失败', error)
-        console.log('登录失败', error)
-      }
-    })
+    chatContent: "",
+    inputValue: "",
+    gamers: [
+      { img: './user-unlogin.png', nickName: 'Exupery' },
+      { img: './user-unlogin.png', nickName: '啊啊啊啊' },
+      { img: './user-unlogin.png', nickName: '789' },
+      { img: './user-unlogin.png', nickName: '987' },
+      { img: './user-unlogin.png', nickName: '654' },
+      { img: './user-unlogin.png', nickName: '321' }
+    ],
+    showNickName: false,
+    gamerCount: 0,
+    showChatContent: true
   },
 
   openTunnel: function () {
-    util.showBusy('信道连接中...')
+    // 对用户隐藏信道
+    // util.showBusy('信道连接中...')
 
     // 创建信道，需要给定后台服务地址
     var tunnel = this.tunnel = new qcloud.Tunnel(config.service.tunnelUrl)
+
+    console.log(tunnel)
 
     // 监听信道内置消息，包括 connect/close/reconnecting/reconnect/error
     tunnel.on('connect', () => {
@@ -123,7 +85,6 @@ Page({
     // 监听自定义消息（服务器进行推送）
     tunnel.on('speak', speak => {
       util.showModel('信道消息', speak)
-      console.log('收到说话消息：', speak)
       this.tunnel.emit('broadcast', { speak })
     })
 
@@ -236,7 +197,6 @@ Page({
 
       this.startX = startX1;
       this.startY = startY1;
-
     }
 
     // content是一个记录方法调用的容器，用于生成记录绘制行为的actions数组。
@@ -273,7 +233,6 @@ Page({
   penSelect: function (e) {
     var now = this.data.isPenSelecting;
     this.setData({isPenSelecting: !now})
-    //this.setData({ pen: parseInt(e.currentTarget.dataset.param) });
     this.isClear = false;
   },
 
@@ -298,20 +257,36 @@ Page({
   onblur: function (e){
     this.setData({ placeholder: '输入您的答案' });
   },
+  
+  onSubmit: function (e){
+    var oldContent = this.data.chatContent;
+    this.setData({
+      chatContent: oldContent + (oldContent === '' ? '' : '\n') + this.data.inputValue,
+      inputValue: ''
+    });
+  },
+
+  onInput: function (e) {
+    this.setData({ inputValue: e.detail.value})
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.login();
-    this.openTunnel();
+    var indexData = JSON.parse(options.data)
+    
+    this.setData(
+      {userInfo : indexData.userInfo}
+    )
+    console.log(this.data.userInfo)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    this.openTunnel();
   },
 
   /**

@@ -21,9 +21,18 @@ class Tunnel extends CI_Controller {
                     'data' => []
                 ]);
             }
-        } else {
-            $handler = new ChatTunnelHandler([]);
-            TunnelService::handle($handler, array('checkLogin' => FALSE));
         }
+        // 这里更改为只有登陆后才能打开信道
+        else {
+                $this->json([
+                    'code' => -1,
+                    'data' => []
+                ]);
+        }
+        // 原来的代码
+        // else {
+        //     $handler = new ChatTunnelHandler([]);
+        //     TunnelService::handle($handler, array('checkLogin' => FALSE));
+        // }
     }
 }

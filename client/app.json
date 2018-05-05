@@ -1,6 +1,8 @@
 {
   "pages":[
-    "pages/drawDemo/drawDemo"
+    "pages/index/index",
+    "pages/draw/draw",
+    "pages/ranking/ranking"
   ],
   "window":{
     "backgroundColor":"#F6F6F6",

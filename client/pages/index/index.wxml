@@ -1,0 +1,3 @@
+<button
+  bindtap='creatRoom'
+>创建房间</button>
