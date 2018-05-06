@@ -17,9 +17,9 @@
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ----------------------------
---  Table structure for `cSessionInfo`
--- ----------------------------
+----------------------------
+ Table structure for `cSessionInfo`
+----------------------------
 DROP TABLE IF EXISTS `cSessionInfo`;
 CREATE TABLE `cSessionInfo` (
   `open_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -35,3 +35,28 @@ CREATE TABLE `cSessionInfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='会话管理用户信息';
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+--  Table structure for `userScore`
+-- ----------------------------
+DROP TABLE IF EXISTS `userScore`;
+CREATE TABLE `userScore` (
+  `open_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `score` int NOT NULL,
+  PRIMARY KEY(`open_id`),
+  FOREIGN KEY (`open_id`) REFERENCES `cSessionInfo`(`open_id`),
+  KEY `openid` (`open_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户历史得分';
+
+-- ----------------------------
+--  Table structure for `userPic`
+-- ----------------------------
+DROP TABLE IF EXISTS `userPic`;
+CREATE TABLE `userPic` (
+  `id`  int PRIMARY KEY AUTO_INCREMENT,
+  `open_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  FOREIGN KEY (`open_id`) REFERENCES `cSessionInfo`(`open_id`),
+  KEY `id` (`id`) USING BTREE,
+  KEY `openid` (`open_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户画作';
+
