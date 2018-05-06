@@ -12,7 +12,7 @@ Page({
     color: '#cc0033', //画笔颜色默认值
 
     userInfo: {},
-    logged: false,
+    logged: true,
     takeSession: false,
     requestResult: '',
     leftTime:60,
@@ -42,7 +42,8 @@ Page({
     ],
     showNickName: false,
     gamerCount: 0,
-    showChatContent: true
+    showChatContent: true,
+    actions: []
   },
 
   openTunnel: function () {
@@ -88,12 +89,15 @@ Page({
       this.tunnel.emit('broadcast', { speak })
     })
 
-    tunnel.on('draw', e => {
-      wx.drawCanvas({
-        canvasId: 'myCanvas',
-        reserve: true,
-        actions: e.word
-      })
+    tunnel.on('draw', actions => {
+      actions = actions.word;
+      for(var i = 0; i < actions.length; i++){
+        wx.drawCanvas({
+          canvasId: 'myCanvas',
+          reserve: true,
+          actions: actions[i]
+        })
+      }
     })
 
     // 打开信道
@@ -202,22 +206,28 @@ Page({
     // content是一个记录方法调用的容器，用于生成记录绘制行为的actions数组。
     // context跟<canvas/>不存在对应关系，一个context生成画布的绘制动作数组可以应用于多个<canvas/>
 
-    var actions = this.context.getActions();
+    var action = this.context.getActions();
 
     wx.drawCanvas({
       canvasId: 'myCanvas',
       reserve: true,
-      actions: actions // 获取绘图动作数组
+      actions: action // 获取绘图动作数组
     })
 
-    this.sendMessage('draw', actions);
+    this.data.actions.push(action)
+
+    if(action.length > 10){
+      this.sendMessage('draw', actions);
+      this.setData({ actions: []})
+    }
   },
 
   /**
    * 手指触摸动作结束
    */
   touchEnd: function () {
-
+    this.sendMessage('draw', this.data.actions);
+    this.setData({ actions: [] })
   },
 
   /**
@@ -275,6 +285,8 @@ Page({
    */
   onLoad: function (options) {
     var indexData = JSON.parse(options.data)
+
+    console.log(indexData)
     
     this.setData(
       {userInfo : indexData.userInfo}
