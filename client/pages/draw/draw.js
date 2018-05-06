@@ -3,7 +3,6 @@ var config = require('../../config')
 var util = require('../../utils/util.js')
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -42,8 +41,12 @@ Page({
     ],
     showNickName: false,
     gamerCount: 0,
+<<<<<<< HEAD
     showChatContent: true,
     actions: []
+=======
+    actions: [],
+>>>>>>> 6c907178448b91a66a78de908e46c0046c9af8fc
   },
 
   openTunnel: function () {
@@ -214,11 +217,19 @@ Page({
       actions: action // 获取绘图动作数组
     })
 
+<<<<<<< HEAD
     this.data.actions.push(action)
 
     if(action.length > 10){
       this.sendMessage('draw', actions);
       this.setData({ actions: []})
+=======
+    if(this.data.actions.length < 20){
+      this.data.actions.push(action)
+    }else{
+      this.sendMessage('draw', this.data.actions);
+      this.setData({ actions: []});
+>>>>>>> 6c907178448b91a66a78de908e46c0046c9af8fc
     }
   },
 
