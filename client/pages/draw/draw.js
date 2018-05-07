@@ -21,7 +21,7 @@ Page({
       {colorName: "Black", value: "#000000"},
       {colorName: "Lime", value: "#00FF00"},
       {colorName: "OrangeRed", value: "#FF4500"},
-      { colorName: "Yellow", value: "#FFFF00"},
+      {colorName: "Yellow", value: "#FFFF00"},
       {colorName: "Orange", value: "#FFA500"},
       {colorName: "DeepSkyBlue", value: "#00BFFF"}
     ],
@@ -288,7 +288,7 @@ Page({
     console.log(indexData)
     
     this.setData(
-      {userInfo : indexData.userInfo}
+      { userInfo : indexData.userInfo }
     )
     console.log(this.data.userInfo)
   },

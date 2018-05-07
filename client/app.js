@@ -6,5 +6,9 @@ App({
     onLaunch: function () {
         // setLoginUrl 方法设置登录地址之后会一直有效，因此你可以在微信小程序启动时设置。
         qcloud.setLoginUrl(config.service.loginUrl)
-    }
+    },
+    tunnel: {},
+    userInfo: {},
+    roomId: -1,
+    roomCount: -1
 })

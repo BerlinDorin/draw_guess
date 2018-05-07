@@ -2,29 +2,34 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class RoomHandler {
-  private static $unusedRoomIds = new SplMinHeap();
+  private static $unusedRoomIds = NULL;
   private static $roomCount = 0;
 
   public static function getNewRoomId(){
-    if($unusedRoomIds->count == 0){
+    if(self::$unusedRoomIds->count() == 0){
       for($i = 0; $i < 10; $i++){
-      $unuseRoomIds->insert($roomCount + $i)
+        self::$unusedRoomIds->insert(self::$roomCount + $i);
+      }
     }
-    $roomCount += 1;
-    return $unusedRoomIds->extract();
+    self::$roomCount += 1;
+    return self::$unusedRoomIds->extract();
   }
 
-  public static function recycleRoomId($roomId)(
-    $unusedRoomIds->insert($roomId);
-    $roomCount -= 1;
-  )
+  public static function recycleRoomId($roomId){
+    self::$unusedRoomIds->insert($roomId);
+    self::$roomCount -= 1;
+  }
 
   public static function getRoomCount(){
-    return $roomCount;
+    return self::$roomCount;
+  }
+
+  public static function shouldReset(){
+    return self::$unusedRoomIds === NULL;
   }
 
   public static function reset(){
-    private static $unusedRoomIds = new SplMinHeap();
-    private static $roomCount = 0;
+    self::$unusedRoomIds = new SplMinHeap();
+    self::$roomCount = 0;
   }
 }

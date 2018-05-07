@@ -39,4 +39,5 @@ var showModel = (title, content) => {
     })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel }
+
+module.exports = { formatTime, showBusy, showSuccess, showModel}
