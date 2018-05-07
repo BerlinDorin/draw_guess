@@ -32,12 +32,12 @@ Page({
     chatContent: "",
     inputValue: "",
     gamers: [
-      { img: './user-unlogin.png', nickName: 'Exupery' },
-      { img: './user-unlogin.png', nickName: '啊啊啊啊' },
-      { img: './user-unlogin.png', nickName: '789' },
-      { img: './user-unlogin.png', nickName: '987' },
-      { img: './user-unlogin.png', nickName: '654' },
-      { img: './user-unlogin.png', nickName: '321' }
+      { img: '/imgs/user-unlogin.png', nickName: 'Exupery' },
+      { img: '/imgs/user-unlogin.png', nickName: '啊啊啊啊' },
+      { img: '/imgs/user-unlogin.png', nickName: '789' },
+      { img: '/imgs/user-unlogin.png', nickName: '987' },
+      { img: '/imgs/user-unlogin.png', nickName: '654' },
+      { img: '/imgs/user-unlogin.png', nickName: '321' }
     ],
     showNickName: false,
     gamerCount: 0,

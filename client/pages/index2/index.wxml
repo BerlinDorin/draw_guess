@@ -1,0 +1,69 @@
+<view class="container">
+
+ <view class="rowline">
+ <view class="userinfo" bindtap="login">
+        <image
+            class="userinfo-avatar"
+            src="{{logged ? userInfo.avatarUrl : './user-unlogin.png'}}"
+            background-size="cover"
+        ></image>
+         <view>
+           
+            <text class="userinfo-nickname">{{logged ? userInfo.nickName : '点击登录'}}</text>
+            <text class="userinfo-nickname" wx:if="{{logged}}">{{userInfo.lastLoginTime}}</text>
+        </view>
+         
+ </view>
+ <view class="userscore">
+    <view>
+             <!--userInfo.score 用户分数 -->
+            <text class="userinfo-nickname">{{logged ? userInfo.score : '0'}}</text>
+            <text class="userinfo-nickname" wx:if="{{logged}}">{{userInfo.lastLoginTime}}</text>
+        </view>
+    <image  mode="widthFix"    
+            class="userinfo-star"
+            src="{{logged ? userInfo.avatarUrl : './star.png'}}"
+            background-size="cover"
+  ></image>
+  </view>
+  </view>
+
+  <!--希望能换个好看的图orz -->
+<view class="rowline">
+   <view class="userinfo" bindtap='guide' >
+        <image  class="seclinepic"       
+            src='./help.jpg'
+            background-size="cover"
+        ></image>     
+ </view>
+ <view class="userscore" bindtap='ranking' >
+        <image  class="seclinepic"  mode="widthFix"      
+            src='./rank.jpg'
+            background-size="cover"
+        ></image>     
+ </view>
+  
+</view>
+
+
+
+<view class="thirdline"
+  bindtap='creatRoom' 
+> 
+<image  class="thirdlinepic"  mode="widthFix"      
+            src='./1.png'
+            background-size="cover"
+        ></image>     
+</view>
+
+ <!--这里需要一个gallery界面 -->
+<view class="thirdline"
+  bindtap='gallery' 
+> 
+<image  class="thirdlinepic"  mode="widthFix"      
+            src='./2.png'
+            background-size="cover"
+        ></image>     
+</view>
+
+</view>

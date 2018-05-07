@@ -67,19 +67,34 @@ Page({
   },
 
   creatRoom: function (e) {
-    var data = {
-      logged: this.data.logged,
-      userInfo: this.data.userInfo
-    }
-    wx.navigateTo({
-      url: '/pages/room/room?data=' + JSON.stringify(data)
+    var that = this;
+    wx.redirectTo({
+      url: '/pages/draw/draw?data=' + JSON.stringify(that.data)
     })
   },
-
-  index2: function (e) {
-    wx.navigateTo({
-      url: '/pages/index2/index'
+  ranking: function (e) {
+    var that = this;
+    wx.redirectTo({
+      url: '/pages/ranking/ranking?data=' + JSON.stringify(that.data)
     })
+  },
+  ranking: function (e) {
+    var that = this;
+    wx.redirectTo({
+      url: '/pages/gallery/gallery?data=' + JSON.stringify(that.data)
+    })
+  },
+  guide: function(e){
+    wx.showModal({
+      title: '游戏玩法',
+      content: '每个玩家轮流绘画\n画师选择一个词语绘画\n猜的人根据绘画内容猜词，猜对才能得分\n猜对人数越多，画师得分越高\n一轮后积分最高者获得胜利',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } 
+      }
+    })  
   },
 
   /**

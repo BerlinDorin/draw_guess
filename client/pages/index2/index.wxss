@@ -1,0 +1,76 @@
+.container{
+    width: 100%;
+    height: 100%;
+     background-color: #FFFACD;
+    flex-direction: column;
+}
+.userinfo, .uploader, .tunnel {
+    margin-top: 40rpx;
+    height: 100%;
+    width: 100%;
+   
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-left: none;
+    border-right: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: all 300ms ease;
+    position: relative;
+    left: 60rpx;
+}
+
+.userinfo-avatar {
+    width: 100rpx;
+    height: 100rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+}
+.userinfo-nickname {
+    font-size: 32rpx;
+    color: #007AFF;  
+}
+
+.userinfo-star {
+    width: 50rpx;
+    height: 50rpx;
+}
+.userscore{
+    margin-top: 40rpx;
+    height: 180rpx;
+    width: 60%;
+   
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-left: none;
+    border-right: none;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    transition: all 300ms ease;
+    position: relative;
+    right: 100rpx;
+}
+.rowline{
+    display: flex;
+    flex-direction: row;
+    height: 180rpx;
+    width: 100%;
+}
+
+.seclinepic{
+  width: 35%;
+  height: 80%;
+}
+.thirdline{
+    margin-top: 40rpx;
+    height: 280rpx;
+    width: 75%;
+  
+    display: flex;
+    align-items: center;
+    transition: all 300ms ease; 
+}
+.thirdlinepic{
+   width: 100%;
+   height: 100%;
+}

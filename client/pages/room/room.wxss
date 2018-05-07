@@ -1,0 +1,149 @@
+ swiper{
+  margin-top: 50rpx;
+  margin-left: 50rpx;
+  margin-right:50rpx;
+  width: 650rpx;
+  height:400rpx;
+}
+swiper image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+.vertical-center{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.waite{
+    background-color: white;
+
+    height: 100rpx;
+    margin-left: 50rpx;
+    margin-right:50rpx; 
+
+    display: flex;
+    flex-direction: row;
+    
+    border-style: solid;
+    border-width: 0px 1px 1px 1px;
+    border-color: #ABABAB;
+    border-radius: 10rpx;
+    box-shadow: 0px 1px 1px 1px #C2C2C2;
+
+    position: relative;
+}
+.waite-icon{
+    left: 30rpx;
+    width: 40rpx;
+    height:50rpx;
+
+}
+.waite-text{
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.exit-button{
+  right: 30rpx;
+  font-size: 20rpx;
+  vertical-align: center;
+  background-color: #FFD700;
+}
+
+.section-title{
+  margin-top:50rpx;
+  text-align: center;
+  font-size:70%;
+  color: brown;
+}
+
+.room-owner{
+  margin-top:70rpx;
+  margin-left: 65rpx;
+  font-size: 70%;
+  color: #357ebd;
+}
+
+.player-icon{
+  margin-top: 20rpx; 
+  margin-left: 40rpx;
+  margin-right:40rpx;
+  display: flex;
+  align-items:center;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+.background{
+    background-color: #FFFAFA;
+    height: 100%;
+}
+.buttons{
+    margin-top: 30rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+}
+.button-invite{
+    text-shadow: 1px 1px 0.5px #FFDEAD;
+    width: 110px;  
+    padding:8px;  
+    background-color:#FFB90F;  
+    border-color: #357ebd;  
+    color: #fff;  
+    -moz-border-radius: 10px;  
+    -webkit-border-radius: 10px;  
+    border-radius: 10px; /* future proofing */  
+    -khtml-border-radius: 10px; /* for old Konqueror browsers */  
+    text-align: center;  
+    vertical-align: middle;  
+    border: 1px solid transparent;  
+    font-weight: 900;  
+    font-size:100%  
+}
+.button-start{
+    text-shadow: 1px 1px 0.5px #FFDEAD;
+    width: 110px;
+    padding:8px;  
+    background-color:#FFB90F;  
+    border-color: #357ebd;  
+    color: #fff;  
+    -moz-border-radius: 10px;  
+    -webkit-border-radius: 10px;  
+    border-radius: 10px; /* future proofing */  
+    -khtml-border-radius: 10px; /* for old Konqueror browsers */  
+    text-align: center;  
+    vertical-align: middle;  
+    border: 1px solid transparent;  
+    font-weight: 900;  
+    font-size:100%  
+}
+
+
+.head{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
+.nickName{
+  width:100%;
+  height: 100%;
+  font-family: SimHei;
+  font-size: 20rpx;
+  margin-top: 10rpx;
+  color: gray;
+  text-align: center;
+}
+
+.gamer-info{
+  display: flex;
+  flex-direction: column;
+}
