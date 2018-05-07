@@ -1,6 +1,7 @@
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util.js')
+var app = getApp()
 
 Page({
     /**
@@ -12,9 +13,16 @@ Page({
         '/imgs/2.png',
         '/imgs/3.jpeg'
       ],
+      logged: false,
       gamerCount: 1,
-      defaultImg: '/imgs/user-unlogin.png',
-      defaultNickname: 'none'
+      gamers: [
+        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
+        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
+        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
+        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
+        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
+        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' }
+      ],
     },
 
     quit: function(){
@@ -100,10 +108,23 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-      var indexData = JSON.parse(options.data)
-      this.setData(indexData)
-      this.setData({ gamer1: this.data.userInfo})
-      this.openTunnel();
+      console.log('app.roomId', app.roomId)
+      if(options.from === "index"){
+        var indexData = JSON.parse(options.data)
+        this.setData(indexData)
+        this.setData(
+          { userInfo: app.userInfo }
+        )
+        var oldGamers = this.data.gamers;
+        oldGamers[0] = this.data.userInfo;
+        this.setData(
+          { gamers: oldGamers,
+            tunnel: app.tunnel,
+            roomId: app.roomId,
+            roomCount: app.roomCount
+           }
+        );
+      }
     },
 
     /**
@@ -120,4 +141,12 @@ Page({
     onUnload: function () {
       this.closeTunnel();
     },
+
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+
+    }
 })

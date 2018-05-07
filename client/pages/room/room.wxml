@@ -37,40 +37,15 @@
   <view class="room-owner">房主</view>
 
   <view class="player-icon">
-    <view class="gamer-info">
-      <image class='head' src="{{gamer1.avatarUrl}}" mode='aspectFit'>
+    <view class="gamer-info" wx:for="{{gamers}}" wx:key="*this">
+      <image class='head' src="{{item.avatarUrl}}" mode='aspectFit'>
       </image>
-      <text class='nickName'>{{gamer1.nickName}}</text>
-    </view>
-    <view class="gamer-info">
-      <image class='head' src='{{gamerCount > 1 ? gamer2.avatarUrl : defaultImg}}' mode='aspectFit'>
-      </image>
-      <text class='nickName'>{{gamerCount > 1 ? gamer2.nickName : defaultNickname}}</text>
-    </view>
-    <view class="gamer-info">
-      <image class='head' src='{{gamerCount > 2 ? gamer3.avatarUrl : defaultImg}}' mode='aspectFit'>
-      </image>
-      <text class='nickName'>{{gamerCount > 2 ? gamer3.nickName : defaultNickname}}</text>
-    </view>
-    <view class="gamer-info">
-      <image class='head' src='{{gamerCount > 3 ? gamer4.avatarUrl : defaultImg}}' mode='aspectFit'>
-      </image>
-      <text class='nickName'>{{gamerCount > 3 ? gamer4.nickName : defaultNickname}}</text>
-    </view>
-    <view class="gamer-info">
-      <image class='head' src='{{gamerCount > 4 ? gamer5.avatarUrl : defaultImg}}' mode='aspectFit'>
-      </image>
-      <text class='nickName'>{{gamerCount > 4 ? gamer5.nickName : defaultNickname}}</text>
-    </view>
-    <view class="gamer-info">
-      <image class='head' src='{{gamerCount > 5 ? gamer6.avatarUrl : defaultImg}}' mode='aspectFit'>
-      </image>
-      <text class='nickName'>{{gamerCount > 5 ? gamer6.nickName : defaultNickname}}</text>
+      <text class='nickName'>{{item.nickName}}</text>
     </view>
   </view>
 
   <view class="buttons">
-    <button class="button-invite" bindtap='invateFriend'>邀请好友</button>
+    <button class="button-invite" open-type='share'>邀请好友</button>
     <button class="button-start" bindtap='startGame'>开始游戏</button>
   </view>
 
