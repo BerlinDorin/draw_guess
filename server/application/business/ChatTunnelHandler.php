@@ -83,7 +83,7 @@ class ChatTunnelHandler implements ITunnelHandler {
       case 'draw':
         self::broadcast('draw', array(
           'who' => $data['userMap'][$tunnelId],
-          'word' => $content['word'],
+          'content' => $content['content'],
         ), true, $tunnelId);
       break;
 

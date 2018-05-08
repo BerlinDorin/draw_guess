@@ -14,62 +14,7 @@ Page({
     tunnel: {}
   },
 
-  /**
-   * 用户登录
-   */
-  login: function () {
-    // 在app.js中已经执行了setLoginUrl
-    // 如果已经登录，直接返回
-    if (this.data.logged)
-      return
-
-    util.showBusy('正在登录')
-    var that = this
-
-    // 调用登录接口
-    qcloud.login({
-      success(result) {
-        if (result) {
-          // util.showSuccess('登录成功')
-          that.setData({
-            userInfo: result,
-            logged: true
-          })
-          that.openTunnel();
-          console.log('登录成功', that.data.userInfo)
-        } else {
-
-          // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
-          qcloud.request({
-            // 这个url：`${host}/weapp/user`
-            url: config.service.requestUrl,
-            login: true,
-            success(result) {
-              // util.showSuccess('登录成功')
-              that.setData({
-                userInfo: result.data.data,
-                logged: true
-              })
-              that.openTunnel();
-              console.log('登录成功', that.data.userInfo)
-            },
-
-            fail(error) {
-              // 改为登录失败 请重试
-              util.showModel('登录失败，请重试')
-              //util.showModel('请求失败', error)
-              console.log('请求失败', error)
-            }
-          })
-        }
-      },
-
-      fail(error) {
-        util.showModel('登录失败, 请重试')
-        console.log('登录失败', error)
-      }
-    })
-  },
+  
 
   openTunnel: function () {
     // util.showBusy('信道连接中...')

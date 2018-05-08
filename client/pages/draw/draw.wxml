@@ -56,18 +56,21 @@
     <view class='head-portrait'>
       <image 
         class='head'
-        src='{{gamers[0].img}}'
-        mode='aspectFit'></image>
-        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[0].nickName}}</text>
+        src='{{gamers[0].avatarUrl}}'
+        mode='aspectFit'>
+      </image>
+      <text wx:if='{{showNickName}}' class='nickName'>{{gamers[0].nickName}}</text>
       <image 
         class='head' 
-        src='{{gamers[1].img}}'
-        mode='aspectFit'></image>
-        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[1].nickName}}</text>
+        src='{{gamers[1].avatarUrl}}'
+        mode='aspectFit'>
+      </image>
+      <text wx:if='{{showNickName}}' class='nickName'>{{gamers[1].nickName}}</text>
       <image 
       class='head' 
-      src='{{gamers[2].img}}'
-      mode='aspectFit'></image>
+      src='{{gamers[2].avatarUrl}}'
+      mode='aspectFit'>
+      </image>
       <text wx:if='{{showNickName}}' class='nickName'>{{gamers[2].nickName}}</text>
     </view>
     <!-- 聊天内容 -->
@@ -77,18 +80,21 @@
     <view class='head-portrait'>
       <image 
         class='head'
-        src='{{gamers[0].img}}'
-        mode='aspectFit'></image>
-        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[0].nickName}}</text>
+        src='{{gamers[0].avatarUrl}}'
+        mode='aspectFit'>
+      </image>
+      <text wx:if='{{showNickName}}' class='nickName'>{{gamers[0].nickName}}</text>
       <image 
         class='head' 
-        src='{{gamers[1].img}}'
-        mode='aspectFit'></image>
-        <text wx:if='{{showNickName}}' class='nickName'>{{gamers[1].nickName}}</text>
+        src='{{gamers[1].avatarUrl}}'
+        mode='aspectFit'>
+      </image>
+      <text wx:if='{{showNickName}}' class='nickName'>{{gamers[1].nickName}}</text>
       <image 
       class='head' 
-      src='{{gamers[2].img}}'
-      mode='aspectFit'></image>
+      src='{{gamers[2].avatarUrl}}'
+      mode='aspectFit'>
+      </image>
       <text wx:if='{{showNickName}}' class='nickName'>{{gamers[2].nickName}}</text>
     </view>
   </view>
