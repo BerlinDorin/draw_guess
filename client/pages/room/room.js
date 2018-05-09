@@ -1,7 +1,9 @@
-var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var app = getApp()
 var config = require('../../config')
 var util = require('../../utils/util.js')
-var app = getApp()
+var loginTools = require('../../utils/loginTools')
+var tunnelTools = require('../../utils/tunnelTools')
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
 
 Page({
     /**
@@ -13,140 +15,97 @@ Page({
         '/imgs/2.png',
         '/imgs/3.jpeg'
       ],
-      logged: false,
-      gamerCount: 1,
-      gamers: [
-        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
-        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
-        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
-        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
-        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' },
-        { avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' }
-      ],
+      gamerCount: 0,
+      gamers: [],
+      from: 'index',
+      isRoomOwner: true,
+      tunnelStatus: 'closed'
     },
+    // 登录相关
+    // 用户登录示例
+    login: loginTools.login,
+    openTunnel: tunnelTools.openTunnel,
+    loginAndOpenTunnel: loginTools.loginAndOpenTunnel,
+
+    sendMessage: tunnelTools.sendMessage,
+    closeTunnel: tunnelTools.closeTunnel,
 
     quit: function(){
-      wx:wx.navigateBack({
-        delta: 1,
-      })
-    },
-
-    openTunnel: function () {
-      util.showBusy('信道连接中...')
-
-      // 创建信道，需要给定后台服务地址
-      var tunnel = this.data.tunnel = new qcloud.Tunnel(config.service.tunnelUrl)
-
-      console.log(tunnel)
-
-      // 监听信道内置消息，包括 connect/close/reconnecting/reconnect/error
-      tunnel.on('connect', () => {
-        util.showSuccess('信道已连接')
-        console.log('WebSocket 信道已连接')
-        this.setData({ tunnelStatus: 'connected' })
-      })
-
-      tunnel.on('close', () => {
-        util.showSuccess('信道已断开')
-        console.log('WebSocket 信道已断开')
-        this.setData({ tunnelStatus: 'closed' })
-      })
-
-      tunnel.on('reconnecting', () => {
-        console.log('WebSocket 信道正在重连...')
-        util.showBusy('正在重连')
-      })
-
-      tunnel.on('reconnect', () => {
-        console.log('WebSocket 信道重连成功')
-        util.showSuccess('重连成功')
-      })
-
-      tunnel.on('error', error => {
-        util.showModel('信道发生错误', error)
-        console.error('信道发生错误：', error)
-      })
-
-      // 监听自定义消息（服务器进行推送）
-      tunnel.on('speak', speak => {
-        util.showModel('信道消息', speak)
-        this.tunnel.emit('broadcast', { speak })
-      })
-
-      tunnel.on('draw', actions => {
-        actions = actions.word;
-        for (var i = 0; i < actions.length; i++) {
-          wx.drawCanvas({
-            canvasId: 'myCanvas',
-            reserve: true,
-            actions: actions[i]
-          })
-        }
-      })
-
-      // 打开信道
-      tunnel.open()
-      this.setData({ tunnelStatus: 'connecting' })
-    },
-
-    /**
-     * 关闭已经打开的信道
-     */
-    closeTunnel() {
-      if (this.data.tunnel) {
-        this.data.tunnel.close();
+      if(this.data.from === 'index'){
+        wx.navigateBack({
+          delta: 1,
+        })
+      }else if(this.data.from == 'share'){
+        wx.redirectTo({
+          url: '/pages/index/index'
+        })
       }
-      util.showBusy('信道连接中...')
-      this.setData({ tunnelStatus: 'closed' })
     },
 
     startGame: function(){
-
+      this.sendMessage();
+      app.gamerCount = this.data.gamerCount;
+      app.gamers = this.data.gamers;
+      // wx.navigateTo({
+      //   url: '/pages/draw/draw'
+      // });
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
+    // 生命周期函数
+    // 监听页面加载
     onLoad: function (options) {
-      console.log('app.roomId', app.roomId)
-      if(options.from === "index"){
-        var indexData = JSON.parse(options.data)
-        this.setData(indexData)
-        this.setData(
-          { userInfo: app.userInfo }
-        )
-        var oldGamers = this.data.gamers;
-        oldGamers[0] = this.data.userInfo;
-        this.setData(
-          { gamers: oldGamers,
-            tunnel: app.tunnel,
-            roomId: app.roomId,
-            roomCount: app.roomCount
-           }
-        );
+      util.showModel(options.roomId)
+      if(options.from === 'share'){
+        this.data.from = 'share'
+      } 
+
+        var defaultGamers = [];
+        for(var i = 0; i < 6; ++i){
+          defaultGamers.push({ avatarUrl: '/imgs/user-unlogin.png', nickName: 'None' })
+        }
+        this.setData({ gamers: defaultGamers });
+
+      if(this.data.from === "index"){
+        this.openTunnel('create', app.roomId);
+        var newGamers = this.data.gamers;
+        newGamers[0] = app.userInfo;
+        this.setData({ gamers: newGamers });
+      }else if(this.data.from === 'share'){
+        console.log('share')
+        app.roomId = options.roomId;
+        console.log(app.roomId)
+        this.setData({ isRoomOwner: false })
+        console.log(1)
+        this.loginAndOpenTunnel('join', app.roomId);
+        console.log(2)
       }
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
+    // 监听页面初次渲染完成
+    onReady: function () {
+      
+    },
+    // 监听页面显示
     onShow: function () {
       
     },
-
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
+    // 监听页面隐藏
+    onHide: function () {},
+    // 监听页面卸载
     onUnload: function () {
       this.closeTunnel();
+      app.tunnelStatus = 'closed';
     },
-
-
-    /**
-     * 用户点击右上角分享
-     */
+    //页面相关事件处理函数
+    //监听用户下拉动作
+    onPullDownRefresh: function () {},
+    // 页面上拉触底事件的处理函数
+    onReachBottom: function () {},
+    // 用户点击右上角分享
     onShareAppMessage: function () {
-
-    }
+      return {
+        title: app.userInfo.nickName + '邀请你玩你画我猜',
+        path: '/pages/room/room?from=share&roomId=' + app.roomId,
+        imageUrl: '/imgs/2.png'
+      }
+    },
 })

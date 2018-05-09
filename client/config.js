@@ -19,6 +19,7 @@ var config = {
 
         // 测试的信道服务地址
         tunnelUrl: `${host}/weapp/tunnel`,
+        myTunnelUrl: `${host}/weapp/myTunnel/index`,
 
         // 上传图片接口
         uploadUrl: `${host}/weapp/upload`

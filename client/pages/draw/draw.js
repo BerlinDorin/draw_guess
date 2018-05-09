@@ -1,7 +1,6 @@
 var app = getApp()
 var config = require('../../config')
 var util = require('../../utils/util.js')
-var drawTools = require('../../utils/drawTools')
 var loginTools = require('../../utils/loginTools')
 var tunnelTools = require('../../utils/tunnelTools')
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
@@ -156,9 +155,7 @@ Page({
 
   // 生命周期函数
   // 监听页面加载
-  onLoad: function (options) {
-    this.loginAndOpenTunnel();
-  },
+  onLoad: function (options) {},
   // 监听页面初次渲染完成
   onReady: function () {},
   // 监听页面显示
@@ -167,9 +164,7 @@ Page({
   onHide: function () {},
 
   // 监听页面卸载
-  onUnload: function () {
-    this.closeTunnel();
-  },
+  onUnload: function () {},
 
   //页面相关事件处理函数
   //监听用户下拉动作

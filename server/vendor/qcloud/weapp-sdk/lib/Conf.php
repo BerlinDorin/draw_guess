@@ -6,7 +6,7 @@ use \QCloud_WeApp_SDK\Constants;
 
 class Conf {
     // 是否输出 SDK 日志
-    private static $EnableOutputLog = FALSE;
+    private static $EnableOutputLog = true;
 
     // SDK 日志输出目录
     private static $LogPath = '';
@@ -15,7 +15,7 @@ class Conf {
     private static $LogThreshold = 0;
 
     // SDK 日志输出级别（数组）
-    private static $LogThresholdArray = [];
+    private static $LogThresholdArray = [1,2,3,4];
 
     // 程序运行的根路径
     private static $RootPath = '';

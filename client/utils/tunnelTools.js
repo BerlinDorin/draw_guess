@@ -3,11 +3,17 @@ var util = require('./util.js')
 var config = require('../config')
 var qcloud = require('../vendor/wafer2-client-sdk/index')
 
+var page = this;
+
 
 // 打开信道
-var openTunnel =   function(){
+var openTunnel =  function(op, roomId){
   util.showBusy('信道连接中...');
-  var tunnel = app.tunnel = new qcloud.Tunnel(config.service.tunnelUrl);
+  // var tunnel = app.tunnel = new qcloud.Tunnel(config.service.tunnelUrl);
+  var tunnel = app.tunnel = new qcloud.Tunnel(config.service.tunnelUrl + '/index/' + op + '/' + roomId);
+  var that = this;
+
+  console.log('openTunnel',op,roomId)
 
   // 监听信道内置消息，包括 connect/close/reconnecting/reconnect/error
   tunnel.on('connect', () => {
@@ -40,7 +46,37 @@ var openTunnel =   function(){
   // 监听自定义消息（服务器进行推送）
   tunnel.on('speak', speak => {
     util.showModel('信道消息', speak)
-    app.tunnel.emit('broadcast', { speak })
+  });
+
+  tunnel.on('new person', data => {
+    util.showModel('new person', data)
+    console.log('信道消息: new pweson', data.total, data.enter)
+    this.data.gamerCount = data.total;
+    this.data.gamers.push(data.enter);
+  });
+
+  tunnel.on('all people', data => {
+    var newGamers = data.content;
+    
+    while(newGamers.length <6){
+      newGamers.push(this.data.gamers[5])
+    }
+    util.showModel('newGamers', newGamers)
+    this.setData({
+      gamers: newGamers,
+      gamerCount: data.total
+    });
+    util.showModel('all people', data)
+    console.log('all people', data);
+  });
+
+  tunnel.on('someone leave', data => {
+    util.showModel('信道消息', data);
+    this.data.gamerCount = data.total;
+    this.data.gamers.remove(data.leave);
+    if(this.data.gamerCount !== this.data.gamers.length){
+      util.showModel('error:someone leave', 'this.gamerCount !== this.gamers.length');
+    }
   });
 
   tunnel.on('draw', actions => {
@@ -54,8 +90,15 @@ var openTunnel =   function(){
     }
   });
 
+  tunnel.on('debug', data => {
+    console.log('debug', data);
+    util.showModel('debug', data);
+  });
+
+
   // 打开信道
   tunnel.open();
+  console.log("ddd");
   app.tunnelStatus = 'connecting';
 }
 
@@ -68,7 +111,11 @@ var sendMessage = function (messageType, message) {
     return;
   }
   // 使用 tunnel.isActive() 来检测当前信道是否处于可用状态
+  console.log("aaa")
+  console.log(app.tunnel)
+  console.log(app.tunnel.isActive())
   if (app.tunnel && app.tunnel.isActive()) {
+    console.log("bbb")
     app.tunnel.emit(messageType, message);
   }
 }
@@ -79,8 +126,12 @@ var closeTunnel = function () {
     app.tunnel.close();
   }
   util.showBusy('信道关闭中...');
-  this.setData({ tunnelStatus: 'closed' });
+  app.tunnelStatus = 'closed';
   util.showSuccess('信道已关闭');
+}
+
+var setPage = function () {
+  
 }
 
 module.exports = { openTunnel, sendMessage, closeTunnel }

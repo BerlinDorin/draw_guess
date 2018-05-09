@@ -41,10 +41,15 @@ var login = function () {
     })
   }
 
-  var loginAndOpenTunnel = function () {
-    if (app.logged)
-    return
+  var loginAndOpenTunnel = function (op, roomId) {
+    // if (app.logged)
+    //     return
+
+    var that = this;
+    
     util.showBusy('正在登录')
+
+    console.log('loginAndOpenTunnel', op, roomId)
     qcloud.login({
         success(result) {
             if (result) {
@@ -52,7 +57,7 @@ var login = function () {
                 app.userInfo = result;
                 app.logged = true;
                 console.log('登录成功', app.userInfo);
-                tunnelTools.openTunnel();
+                that.openTunnel(op, roomId);
             } else {
                 // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
                 qcloud.request({
@@ -63,7 +68,7 @@ var login = function () {
                         app.userInfo = result.data.data
                         app.logged = true
                         console.log('登录成功', app.userInfo)
-                        tunnelTools.openTunnel();
+                        that.openTunnel(op, roomId);
                     },
                     fail(error) {
                     util.showModel('请求失败', error)

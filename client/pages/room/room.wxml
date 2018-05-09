@@ -45,8 +45,8 @@
   </view>
 
   <view class="buttons">
-    <button class="button-invite" open-type='share'>邀请好友</button>
-    <button class="button-start" bindtap='startGame'>开始游戏</button>
+    <button class="button-invite" open-type='share' wx:if="{{isRoomOwner}}">邀请好友</button>
+    <button class="button-start" bindtap='startGame' wx:if="{{isRoomOwner}}">开始游戏</button>
   </view>
 
   <view>
