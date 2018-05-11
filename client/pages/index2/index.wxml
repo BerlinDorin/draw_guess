@@ -29,41 +29,30 @@
   </view>
 
   <!--希望能换个好看的图orz -->
-<view class="rowline">
-   <view class="userinfo" bindtap='guide' >
-        <image  class="seclinepic"       
+<view class="help_rank">
+   <button  bindtap='guide'  class="secbutton">
+        <image  class="help vertical-center"       
             src='./help.jpg'
-            background-size="cover"
+            
         ></image>     
- </view>
- <view class="userscore" bindtap='ranking' >
-        <image  class="seclinepic"  mode="widthFix"      
-            src='./rank.jpg'
-            background-size="cover"
+ </button>
+ <button bindtap='ranking'  class="secbutton" >
+        <image  class="rank vertical-center" 
+            src='./rank.jpg'       
         ></image>     
- </view>
-  
+ </button>
 </view>
 
-
-
-<view class="thirdline"
-  bindtap='creatRoom' 
-> 
-<image  class="thirdlinepic"  mode="widthFix"      
-            src='./1.png'
-            background-size="cover"
-        ></image>     
-</view>
+<view class='line'> </view>
+<button class="button-createroom" bindtap='creatRoom' > 
+创建房间  
+</button>
 
  <!--这里需要一个gallery界面 -->
-<view class="thirdline"
+<button class="button-gallery"
   bindtap='gallery' 
 > 
-<image  class="thirdlinepic"  mode="widthFix"      
-            src='./2.png'
-            background-size="cover"
-        ></image>     
-</view>
+画廊
+</button>
 
 </view>
